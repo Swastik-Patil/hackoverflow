@@ -1,36 +1,27 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
-import LoginScreen, { SocialButton } from "react-native-login-screen";
-
+import React, { useState, useEffect } from 'react';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import ChatScreen from "./Screens/ChatScreen";
+import HomeScreen from "./Screens/HomeScreen";
+import SplashScreen from "./Screens/SplashScreen";
+const Stack = createNativeStackNavigator();
 export default function App() {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+    const [isLoading, setIsLoading] = useState(true);
 
-  return (
-    <View style={styles.container}>
-      <LoginScreen
-        className="bg-white"
-        logoImageSource={require("./assets/social/logo.png")}
-        onLoginPress={() => {}}
-        onSignupPress={() => {}}
-        onEmailChange={() => {}}
-        onPasswordChange={() => {}}
-      >
-        <SocialButton
-          text="Continue with Google"
-          imageSource={require("./assets/social/Google.png")}
-          onPress={() => {}}
-        />
-      </LoginScreen>
-    </View>
-  );
+    useEffect(() => {
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 2000); // 3 seconds
+      }, []);
+
+  return (isLoading ? (
+    <SplashScreen />
+  ) : (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Chat" component={ChatScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  ));
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
