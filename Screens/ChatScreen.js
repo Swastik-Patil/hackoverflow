@@ -66,7 +66,7 @@ const ChatScreen = ({ route, navigation }) => {
           headers: {
             "content-type": " application/json",
             Authorization:
-              "Bearer" + " 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",
+              "Bearer" + "API_KEY_HERE",
           },
         })
           .then((response) => {
